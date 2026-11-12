@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from mistralai.models.chat_completion import ChatMessage, ChatCompletionResponse, ChatCompletionResponseChoice, UsageInfo
+from mistralai.client.models import AssistantMessage, ChatCompletionResponse, ChatCompletionChoice, UsageInfo
 
 from api.init import init
 from api.services.chat_service import ChatService
@@ -11,16 +11,14 @@ def test_chat():
         object='chat.completion', 
         created=1722004932, 
         model='open-mixtral-8x22b', 
-        choices=[ChatCompletionResponseChoice(
+        choices=[ChatCompletionChoice(
             index=0, 
-            message=ChatMessage(
+            message=AssistantMessage(
                 role='assistant', 
                 content="This is a mock response.",
-                name=None, 
-                tool_calls=None, 
-                tool_call_id=None
+                tool_calls=None
             ),
-            finish_reason= None
+            finish_reason='stop'
         )], 
         usage=UsageInfo(
             prompt_tokens=5, 
